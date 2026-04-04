@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Aumera Fashion Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --warm-white: #FAF8F4;
+    --charcoal: #1A1A1A;
+    --mocha: #5C3D2E;
+    --gold: #C9A84C;
+    --rose: #D4A5A5;
+    --sage: #8A9E8B;
+    --ink: #2C2C2C;
+    --muted: #9A8F84;
+    --border: #E2D9CC;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    min-height: 100vh;
+    max-width: 430px;
+    margin: 0 auto;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+  }
+  .header-top {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 600; letter-spacing: 2px;
+    color: var(--charcoal);
+    text-transform: uppercase;
+  }
+  .logo span { color: var(--gold); }
+  .header-icons { display: flex; gap: 18px; align-items: center; }
+  .icon-btn {
+    background: none; border: none; cursor: pointer;
+    color: var(--charcoal); font-size: 20px; position: relative;
+    width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+  }
+  .badge {
+    position: absolute; top: -4px; right: -4px;
+    background: var(--gold); color: white;
+    font-size: 9px; font-weight: 500;
+    width: 16px; height: 16px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ── SEARCH BAR ── */
+  .search-bar {
+    padding: 10px 0 12px;
+    position: relative;
+  }
+  .search-bar input {
+    width: 100%; padding: 10px 16px 10px 40px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--charcoal);
+    outline: none;
+  }
+  .search-bar input::placeholder { color: var(--muted); }
+  .search-icon {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--muted); font-size: 16px;
+  }
+
+  /* ── HERO BANNER ── */
+  .hero {
+    margin: 0 16px 20px;
+    border-radius: 16px; overflow: hidden;
+    background: linear-gradient(135deg, #2C1810 0%, #5C3D2E 50%, #8B6355 100%);
+    padding: 32px 24px;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; right: 0; bottom: 0;
+    width: 50%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 300'%3E%3Cellipse cx='150' cy='150' rx='120' ry='160' fill='%23C9A84C' opacity='0.12'/%3E%3Cellipse cx='100' cy='200' rx='80' ry='100' fill='%23D4A5A5' opacity='0.08'/%3E%3C/svg%3E") no-repeat center/cover;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--gold); color: white;
+    font-size: 10px; font-weight: 500; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 300; color: white;
+    line-height: 1.2; margin-bottom: 8px;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero p { font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 20px; }
+  .hero-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: white; color: var(--mocha);
+    font-size: 13px; font-weight: 500; padding: 10px 20px;
+    border-radius: 24px; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ── CATEGORIES ── */
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 400; color: var(--charcoal);
+    margin-bottom: 14px; letter-spacing: 0.5px;
+  }
+  .section { padding: 0 16px; margin-bottom: 28px; }
+
+  .cats {
+    display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .cats::-webkit-scrollbar { display: none; }
+  .cat {
+    flex-shrink: 0;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    cursor: pointer;
+  }
+  .cat-icon {
+    width: 64px; height: 64px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .cat.active .cat-icon { border-color: var(--gold); }
+  .cat-label { font-size: 11px; color: var(--muted); font-weight: 500; }
+  .cat.active .cat-label { color: var(--gold); }
+
+  /* ── PRODUCT GRID ── */
+  .product-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px; padding: 0 16px; margin-bottom: 28px;
+  }
+  .product-card {
+    background: white; border-radius: 14px; overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .product-card:active { transform: scale(0.97); }
+  .product-img {
+    width: 100%; aspect-ratio: 3/4;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 56px;
+    position: relative;
+  }
+  .wishlist-btn {
+    position: absolute; top: 8px; right: 8px;
+    background: white; border: none; border-radius: 50%;
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+  .tag-badge {
+    position: absolute; top: 8px; left: 8px;
+    background: var(--charcoal); color: white;
+    font-size: 9px; font-weight: 500; letter-spacing: 1px;
+    text-transform: uppercase; padding: 3px 8px; border-radius: 20px;
+  }
+  .tag-badge.sale { background: #C14444; }
+  .tag-badge.new { background: var(--sage); }
+  .product-info { padding: 10px 12px 12px; }
+  .product-brand { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px; }
+  .product-name { font-size: 14px; font-weight: 500; color: var(--charcoal); margin-bottom: 6px; }
+  .product-price { display: flex; align-items: center; gap: 6px; }
+  .price-now { font-size: 15px; font-weight: 500; color: var(--mocha); }
+  .price-old { font-size: 12px; color: var(--muted); text-decoration: line-through; }
+  .add-btn {
+    margin-top: 8px; width: 100%;
+    background: var(--charcoal); color: white;
+    border: none; border-radius: 8px;
+    padding: 8px; font-size: 12px; font-weight: 500;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+  }
+  .add-btn:active { background: var(--mocha); }
+
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 430px;
+    background: white; border-top: 1px solid var(--border);
+    display: flex; z-index: 100;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .nav-item {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 10px 0; gap: 4px; cursor: pointer;
+    font-size: 10px; color: var(--muted); font-weight: 500;
+    border: none; background: none;
+    transition: color 0.2s;
+  }
+  .nav-item.active { color: var(--gold); }
+  .nav-item svg { width: 22px; height: 22px; }
+  .nav-dot {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--gold); margin-top: 2px;
+  }
+
+  /* ── CART SHEET ── */
+  .sheet-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+    z-index: 200; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .sheet-overlay.open { opacity: 1; pointer-events: all; }
+  .cart-sheet {
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%) translateY(100%);
+    width: 100%; max-width: 430px;
+    background: white; border-radius: 24px 24px 0 0;
+    z-index: 201; padding: 16px;
+    transition: transform 0.35s cubic-bezier(.32,.72,0,1);
+    max-height: 80vh; overflow-y: auto;
+  }
+  .cart-sheet.open { transform: translateX(-50%) translateY(0); }
+  .sheet-handle {
+    width: 36px; height: 4px; background: var(--border);
+    border-radius: 2px; margin: 0 auto 16px;
+  }
+  .cart-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; margin-bottom: 16px;
+  }
+  .cart-item {
+    display: flex; gap: 12px; padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+  }
+  .cart-item-img {
+    width: 56px; height: 72px; border-radius: 10px;
+    background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; flex-shrink: 0;
+  }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .cart-item-price { font-size: 14px; color: var(--mocha); font-weight: 500; }
+  .qty-ctrl {
+    display: flex; align-items: center; gap: 12px; margin-top: 6px;
+  }
+  .qty-btn {
+    width: 26px; height: 26px; border-radius: 50%;
+    border: 1px solid var(--border); background: none;
+    font-size: 16px; cursor: pointer; display: flex;
+    align-items: center; justify-content: center; color: var(--charcoal);
+  }
+  .qty-num { font-size: 14px; font-weight: 500; }
+  .cart-total {
+    display: flex; justify-content: space-between;
+    padding: 16px 0 8px; font-weight: 500; font-size: 16px;
+  }
+  .checkout-btn {
+    width: 100%; padding: 14px;
+    background: var(--charcoal); color: white;
+    border: none; border-radius: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 500; cursor: pointer;
+    margin-top: 4px;
+  }
+  .empty-cart { text-align: center; padding: 32px 0; color: var(--muted); }
+  .empty-cart .emoji { font-size: 48px; margin-bottom: 12px; }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--charcoal); color: white;
+    padding: 10px 20px; border-radius: 24px;
+    font-size: 13px; z-index: 300;
+    opacity: 0; transition: all 0.3s; pointer-events: none;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* spacing for bottom nav */
+  .page-bottom { height: 72px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div class="logo">Aumera<span>.</span></div>
+    <div class="header-icons">
+      <button class="icon-btn" onclick="toggleWishlist()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <div class="badge" id="wishlistBadge" style="display:none">0</div>
+      </button>
+      <button class="icon-btn" onclick="toggleCart()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <div class="badge" id="cartBadge">0</div>
+      </button>
+    </div>
+  </div>
+  <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="text" placeholder="Search dresses, kurtis, sarees..." id="searchInput" oninput="filterProducts()">
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">New Collection 2025</div>
+  <h1>Elegance <em>Reimagined</em></h1>
+  <p>Curated fashion for the modern Indian woman</p>
+  <button class="hero-btn">Shop Now →</button>
+</div>
+
+<!-- CATEGORIES -->
+<div class="section">
+  <div class="section-title">Categories</div>
+  <div class="cats" id="catList">
+    <div class="cat active" onclick="filterCat('All', this)">
+      <div class="cat-icon" style="background:#F5F0E8">👗</div>
+      <div class="cat-label">All</div>
+    </div>
+    <div class="cat" onclick="filterCat('Saree', this)">
+      <div class="cat-icon" style="background:#EDE0D4">🥻</div>
+      <div class="cat-label">Sarees</div>
+    </div>
+    <div class="cat" onclick="filterCat('Kurti', this)">
+      <div class="cat-icon" style="background:#E8EDE4">👘</div>
+      <div class="cat-label">Kurtis</div>
+    </div>
+    <div class="cat" onclick="filterCat('Lehenga', this)">
+      <div class="cat-icon" style="background:#EDE4E8">🎀</div>
+      <div class="cat-label">Lehenga</div>
+    </div>
+    <div class="cat" onclick="filterCat('Western', this)">
+      <div class="cat-icon" style="background:#E4E8ED">👚</div>
+      <div class="cat-label">Western</div>
+    </div>
+    <div class="cat" onclick="filterCat('Jewellery', this)">
+      <div class="cat-icon" style="background:#EDE8E0">💎</div>
+      <div class="cat-label">Jewellery</div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section-title" style="padding:0 16px; margin-bottom:14px">Featured Products</div>
+<div class="product-grid" id="productGrid"></div>
+
+<div class="page-bottom"></div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-item active" onclick="setNav(this)">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+    Home
+  </button>
+  <button class="nav-item" onclick="setNav(this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    Explore
+  </button>
+  <button class="nav-item" onclick="setNav(this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    Wishlist
+  </button>
+  <button class="nav-item" onclick="setNav(this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Profile
+  </button>
+</div>
+
+<!-- CART SHEET -->
+<div class="sheet-overlay" id="overlay" onclick="toggleCart()"></div>
+<div class="cart-sheet" id="cartSheet">
+  <div class="sheet-handle"></div>
+  <div class="cart-title">Your Bag 🛍️</div>
+  <div id="cartItems"></div>
+  <div id="cartFooter"></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const products = [
+  { id:1, name:'Silk Kanjeevaram', brand:'Aumera Silk', price:4999, old:6999, emoji:'🥻', cat:'Saree', tag:'sale', color:'#FFF0E8', wishlist:false },
+  { id:2, name:'Floral Anarkali', brand:'Ethnic Story', price:2499, old:null, emoji:'👗', cat:'Kurti', tag:'new', color:'#F0F4EE', wishlist:false },
+  { id:3, name:'Bridal Lehenga', brand:'Royal Drape', price:12999, old:16999, emoji:'🎀', cat:'Lehenga', tag:'sale', color:'#F4EEF4', wishlist:false },
+  { id:4, name:'Linen Co-ord Set', brand:'Urbanette', price:1899, old:null, emoji:'👚', cat:'Western', tag:'new', color:'#EEF0F4', wishlist:false },
+  { id:5, name:'Chanderi Saree', brand:'Aumera Silk', price:3499, old:4500, emoji:'🥻', cat:'Saree', tag:'sale', color:'#F4F0EE', wishlist:false },
+  { id:6, name:'Block Print Kurti', brand:'Indie Craft', price:999, old:null, emoji:'👘', cat:'Kurti', tag:'new', color:'#EEF4F0', wishlist:false },
+  { id:7, name:'Kundan Necklace', brand:'Rajwada', price:1499, old:2200, emoji:'💎', cat:'Jewellery', tag:'sale', color:'#F4F2E8', wishlist:false },
+  { id:8, name:'Blazer Dress', brand:'Urbanette', price:2199, old:null, emoji:'🧥', cat:'Western', tag:'new', color:'#EEEEF4', wishlist:false },
+];
+
+let cart = {};
+let currentCat = 'All';
+let searchQ = '';
+
+function renderProducts() {
+  const grid = document.getElementById('productGrid');
+  let filtered = products.filter(p => {
+    const catMatch = currentCat === 'All' || p.cat === currentCat;
+    const searchMatch = p.name.toLowerCase().includes(searchQ.toLowerCase()) ||
+                        p.brand.toLowerCase().includes(searchQ.toLowerCase());
+    return catMatch && searchMatch;
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">
+      <div style="font-size:40px;margin-bottom:12px">🔍</div>
+      No products found
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card">
+      <div class="product-img" style="background:${p.color}">
+        ${p.tag ? `<div class="tag-badge ${p.tag}">${p.tag === 'sale' ? 'SALE' : 'NEW'}</div>` : ''}
+        <button class="wishlist-btn" onclick="toggleProductWishlist(${p.id})" id="wbtn-${p.id}">
+          ${p.wishlist ? '❤️' : '🤍'}
+        </button>
+        <span style="font-size:52px">${p.emoji}</span>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">${p.brand}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-price">
+          <span class="price-now">₹${p.price.toLocaleString()}</span>
+          ${p.old ? `<span class="price-old">₹${p.old.toLocaleString()}</span>` : ''}
+        </div>
+        <button class="add-btn" onclick="addToCart(${p.id})">+ Add to Bag</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addToCart(id) {
+  cart[id] = (cart[id] || 0) + 1;
+  updateCartBadge();
+  showToast('Added to bag 🛍️');
+}
+
+function updateCartBadge() {
+  const total = Object.values(cart).reduce((a,b) => a+b, 0);
+  document.getElementById('cartBadge').textContent = total;
+}
+
+function toggleProductWishlist(id) {
+  const p = products.find(x => x.id === id);
+  p.wishlist = !p.wishlist;
+  document.getElementById('wbtn-'+id).textContent = p.wishlist ? '❤️' : '🤍';
+  const wCount = products.filter(x => x.wishlist).length;
+  const badge = document.getElementById('wishlistBadge');
+  if (wCount > 0) { badge.style.display='flex'; badge.textContent = wCount; }
+  else { badge.style.display='none'; }
+  showToast(p.wishlist ? 'Added to wishlist ❤️' : 'Removed from wishlist');
+}
+
+function toggleCart() {
+  const sheet = document.getElementById('cartSheet');
+  const overlay = document.getElementById('overlay');
+  const isOpen = sheet.classList.contains('open');
+  if (!isOpen) { renderCart(); }
+  sheet.classList.toggle('open');
+  overlay.classList.toggle('open');
+}
+
+function renderCart() {
+  const items = document.getElementById('cartItems');
+  const footer = document.getElementById('cartFooter');
+  const cartProducts = Object.keys(cart).map(id => ({
+    ...products.find(p => p.id == id), qty: cart[id]
+  }));
+
+  if (cartProducts.length === 0) {
+    items.innerHTML = `<div class="empty-cart"><div class="emoji">🛍️</div>Your bag is empty!</div>`;
+    footer.innerHTML = '';
+    return;
+  }
+
+  items.innerHTML = cartProducts.map(p => `
+    <div class="cart-item">
+      <div class="cart-item-img">${p.emoji}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${p.name}</div>
+        <div class="cart-item-price">₹${(p.price * p.qty).toLocaleString()}</div>
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="changeQty(${p.id},-1)">−</button>
+          <span class="qty-num">${p.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${p.id},1)">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  const total = cartProducts.reduce((s,p) => s + p.price*p.qty, 0);
+  footer.innerHTML = `
+    <div class="cart-total"><span>Total</span><span>₹${total.toLocaleString()}</span></div>
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout →</button>
+  `;
+}
+
+function changeQty(id, delta) {
+  cart[id] = (cart[id] || 0) + delta;
+  if (cart[id] <= 0) delete cart[id];
+  updateCartBadge();
+  renderCart();
+}
+
+function checkout() {
+  showToast('Order placed! 🎉');
+  cart = {};
+  updateCartBadge();
+  toggleCart();
+}
+
+function filterCat(cat, el) {
+  currentCat = cat;
+  document.querySelectorAll('.cat').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderProducts();
+}
+
+function filterProducts() {
+  searchQ = document.getElementById('searchInput').value;
+  renderProducts();
+}
+
+function setNav(el) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+renderProducts();
+</script>
+</body>
+</html>
