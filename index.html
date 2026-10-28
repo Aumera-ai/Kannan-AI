@@ -158,7 +158,7 @@ h1,h2,h3,.brand{font-family:'Cormorant Garamond',serif;}
 .accordion{margin:0 16px 8px;}
 .accordion-title{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--gray2);cursor:pointer;font-weight:600;font-size:14px;}
 .accordion-body{max-height:0;overflow:hidden;transition:.3s;font-size:13px;color:var(--text2);line-height:1.7;}
-.accordion-body.open{max-height:300px;padding-bottom:12px;overflow-y:auto;}
+.accordion-body.open{max-height:400px;padding-bottom:12px;overflow-y:auto;}
 
 /* LIGHTBOX MODAL */
 #lightbox-modal {
@@ -543,7 +543,7 @@ h1,h2,h3,.brand{font-family:'Cormorant Garamond',serif;}
       <div><b>Free Delivery</b><p>Estimated delivery in 3–5 business days</p></div>
     </div>
     <div class="accordion">
-      <div class="accordion-title" onclick="toggleAccordion(this)">Product Details <i class="fas fa-chevron-down"></i></div>
+      <div class="accordion-title" onclick="toggleAccordion(this)">Product Specifications & Details <i class="fas fa-chevron-down"></i></div>
       <div class="accordion-body" id="prod-detail-desc"></div>
     </div>
     <div class="accordion" id="prod-video-accordion" style="display:none;">
@@ -551,8 +551,8 @@ h1,h2,h3,.brand{font-family:'Cormorant Garamond',serif;}
       <div class="accordion-body" id="prod-detail-video-box"></div>
     </div>
     <div class="accordion">
-      <div class="accordion-title" onclick="toggleAccordion(this)">Return Policy <i class="fas fa-chevron-down"></i></div>
-      <div class="accordion-body">Easy 7-day return policy. Product must be in original condition with tags. Refunds processed within 5–7 business days.</div>
+      <div class="accordion-title" onclick="toggleAccordion(this)">Return Policy (Store Policy) <i class="fas fa-chevron-down"></i></div>
+      <div class="accordion-body" id="prod-return-policy-text">Easy 7-day return policy. Product must be in original condition with tags. Refunds processed within 5–7 business days.</div>
     </div>
     <div class="sec-title"><h2>You May Also Like</h2></div>
     <div class="horiz-scroll" id="related-prods"></div>
@@ -609,7 +609,7 @@ h1,h2,h3,.brand{font-family:'Cormorant Garamond',serif;}
 
   <!-- ORDERS PAGE -->
   <div id="orders-page" class="page">
-    <div style="padding:14px 16px 0;font-size:18px;font-weight:700;color:var(--navy);font-family:'Cormorant Garamond',serif;">My Orders</div>
+    <div style="padding:14px 16px 0;font-size:18px;font-weight:700;color:var(--navy);font-family:'Cormorant Garamond',serif;">My Orders & Tracking</div>
     <div id="orders-list" style="padding:10px 0;"></div>
   </div>
 
@@ -658,16 +658,38 @@ h1,h2,h3,.brand{font-family:'Cormorant Garamond',serif;}
       <div class="admin-form">
         <h3 id="prod-form-title"><i class="fas fa-plus-circle"></i> Add New Product</h3>
         <input class="admin-input" id="ap-name" placeholder="Product Name">
-        <select class="admin-input" id="ap-cat">
-          <option value="">Select Category</option>
-          <option>Women's Wear</option><option>Men's Wear</option><option>Kids</option><option>Accessories</option><option>Footwear</option><option>Home & Living</option>
-        </select>
-        <input class="admin-input" id="ap-brand" placeholder="Brand Name">
+        
+        <div class="admin-input-row">
+          <select class="admin-input" id="ap-cat">
+            <option value="">Select Category</option>
+            <option>Women's Wear</option><option>Men's Wear</option><option>Kids</option><option>Accessories</option><option>Footwear</option><option>Home & Living</option>
+          </select>
+          <input class="admin-input" id="ap-subcat" placeholder="Sub-Category (e.g. Sarees, Kurtis)">
+        </div>
+
+        <div class="admin-input-row">
+          <input class="admin-input" id="ap-brand" placeholder="Brand Name">
+          <input class="admin-input" id="ap-color" placeholder="Colour (e.g. Royal Blue)">
+        </div>
+
+        <div class="admin-input-row">
+          <input class="admin-input" id="ap-weight" placeholder="Weight (e.g. 400g)">
+          <input class="admin-input" id="ap-fabric" placeholder="Fabric / Material">
+        </div>
+
+        <input class="admin-input" id="ap-blouse" placeholder="Blouse Pattern & Colour (e.g. Contrast Blouse)">
+        
         <button class="ai-gen-btn" onclick="generateAIDescription()"><i class="fas fa-magic"></i> Auto Generate Description with AI</button>
         <textarea class="admin-input" id="ap-desc" placeholder="Product Description" rows="3" style="resize:vertical;"></textarea>
+
         <div class="admin-input-row">
           <input class="admin-input" id="ap-mrp" placeholder="MRP (₹)" type="number">
           <input class="admin-input" id="ap-price" placeholder="Selling Price (₹)" type="number">
+        </div>
+
+        <div class="admin-input-row">
+          <input class="admin-input" id="ap-mfr" placeholder="Manufacturer Address">
+          <input class="admin-input" id="ap-packer" placeholder="Packer Address">
         </div>
         
         <!-- MULTIPLE IMAGES UPLOAD -->
@@ -729,6 +751,11 @@ h1,h2,h3,.brand{font-family:'Cormorant Garamond',serif;}
         <input class="admin-input" id="set-qr-url" placeholder="Or QR Code Image URL">
         <textarea class="admin-input" id="set-bank-details" placeholder="Bank Account Details" rows="3"></textarea>
         <button class="admin-btn" onclick="savePaymentSettings()">Save Payment Settings</button>
+      </div>
+      <div class="admin-form">
+        <h3><i class="fas fa-undo"></i> Return Policy Configuration (Store Policy)</h3>
+        <textarea class="admin-input" id="set-return-policy" placeholder="Enter store return policy details..." rows="3"></textarea>
+        <button class="admin-btn" onclick="saveReturnPolicySettings()">Save Return Policy</button>
       </div>
       <div class="admin-form">
         <h3><i class="fas fa-key"></i> Change Admin Credentials</h3>
@@ -823,7 +850,7 @@ h1,h2,h3,.brand{font-family:'Cormorant Garamond',serif;}
         <b id="success-order-id">AUM-000000</b>
       </div>
       <p style="font-size:12px;color:var(--green);">We will verify payment and dispatch your items!</p>
-      <button class="modal-btn" style="margin-top:16px;" onclick="closeModal('success-modal');showPage('orders-page')">View My Orders</button>
+      <button class="modal-btn" style="margin-top:16px;" onclick="closeModal('success-modal');showPage('orders-page')">Track My Order</button>
     </div>
   </div>
 </div>
@@ -884,6 +911,8 @@ function init() {
   if(qrIn) qrIn.value = localStorage.getItem('aumera_qr_url') || '';
   const bankIn = document.getElementById('set-bank-details');
   if(bankIn) bankIn.value = localStorage.getItem('aumera_bank_details') || '';
+  const returnIn = document.getElementById('set-return-policy');
+  if(returnIn) returnIn.value = localStorage.getItem('aumera_return_policy') || 'Easy 7-day return policy. Product must be in original condition with tags. Refunds processed within 5–7 business days.';
 
   setupTouchSwipe();
   setupPullToRefresh();
@@ -1030,6 +1059,12 @@ function savePaymentSettings() {
   showToast('Payment Options Saved ✅');
 }
 
+function saveReturnPolicySettings() {
+  const policy = document.getElementById('set-return-policy').value.trim();
+  localStorage.setItem('aumera_return_policy', policy);
+  showToast('Return Policy Saved ✅');
+}
+
 function saveApiKey() {
   const k = document.getElementById('gemini-api-key-input').value.trim();
   if(!k) { showToast('Please enter an API Key'); return; }
@@ -1169,6 +1204,13 @@ function seedProducts() {
       name:'Floral Anarkali Kurti',
       brand:'AumerA Fashion',
       cat:"Women's Wear",
+      subcat:'Kurtis',
+      color:'Royal Blue',
+      weight:'350g',
+      fabric:'Pure Cotton',
+      blouse:'Contrast Blouse',
+      mfr:'AumerA Fashion Hub, Kalady, Kerala',
+      packer:'AumerA Logistics, Kochi',
       desc:'Beautiful floral printed Anarkali kurti, perfect for casual and festive occasions.',
       mrp:1299,
       price:649,
@@ -1359,7 +1401,18 @@ function openProduct(id) {
   const disc = Math.round((p.mrp - p.price) / p.mrp * 100);
   document.getElementById('prod-detail-price').innerHTML = `₹${p.price}<small>₹${p.mrp}</small><span>${disc}% off</span>`;
   document.getElementById('det-qty').textContent = '1';
-  document.getElementById('prod-detail-desc').textContent = p.desc || '';
+
+  let descHTML = p.desc || '';
+  if(p.subcat) descHTML += `<br>📂 <b>Sub-Category:</b> ${p.subcat}`;
+  if(p.color) descHTML += `<br>🎨 <b>Colour:</b> ${p.color}`;
+  if(p.weight) descHTML += `<br>⚖️ <b>Weight:</b> ${p.weight}`;
+  if(p.fabric) descHTML += `<br>🧵 <b>Fabric / Material:</b> ${p.fabric}`;
+  if(p.blouse) descHTML += `<br>👚 <b>Blouse Pattern & Colour:</b> ${p.blouse}`;
+  if(p.mfr) descHTML += `<br>🏭 <b>Manufacturer:</b> ${p.mfr}`;
+  if(p.packer) descHTML += `<br>📦 <b>Packer:</b> ${p.packer}`;
+
+  document.getElementById('prod-detail-desc').innerHTML = descHTML;
+  document.getElementById('prod-return-policy-text').textContent = localStorage.getItem('aumera_return_policy') || 'Easy 7-day return policy. Product must be in original condition with tags.';
   
   const videoAcc = document.getElementById('prod-video-accordion');
   const videoBox = document.getElementById('prod-detail-video-box');
@@ -1680,7 +1733,13 @@ function placeOrder() {
     date: new Date().toLocaleDateString('en-IN'),
     status: 'Processing',
     payment: 'Online Payment (Txn ID: ' + txnid + ')',
-    address: {name, phone, addr}
+    address: {name, phone, addr},
+    trackingSteps: [
+      {title: 'Order Placed', time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}), done: true},
+      {title: 'Payment Verified', time: 'Pending', done: false},
+      {title: 'Shipped', time: 'Pending', done: false},
+      {title: 'Delivered', time: 'Pending', done: false}
+    ]
   };
   
   state.orders.unshift(order);
@@ -1709,6 +1768,23 @@ function renderOrders() {
         ${o.items.slice(0,3).map(i=>`<img src="${i.img}" alt="${i.name}" onerror="this.src='https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400'">`).join('')}
         ${o.items.length>3?`<div style="width:50px;height:56px;background:var(--gray);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text2);">+${o.items.length-3}</div>`:''}
       </div>
+      <!-- ORDER TRACKING STEPS -->
+      <div style="background:var(--gray);border-radius:8px;padding:10px;margin:8px 0;">
+        <b style="font-size:12px;color:var(--navy);display:block;margin-bottom:6px;"><i class="fas fa-shipping-fast"></i> Live Order Tracking</b>
+        <div style="display:flex;justify-content:space-between;font-size:10px;text-align:center;">
+          ${(o.trackingSteps || [
+            {title:'Placed',done:true},
+            {title:'Verified',done:o.status!=='Processing'},
+            {title:'Shipped',done:o.status==='Shipped'||o.status==='Delivered'},
+            {title:'Delivered',done:o.status==='Delivered'}
+          ]).map((step, sIdx) => `
+            <div style="flex:1;position:relative;">
+              <div style="width:18px;height:18px;border-radius:50%;background:${step.done?'var(--green)':'#ccc'};color:white;margin:0 auto 3px;display:flex;align-items:center;justify-content:center;font-size:9px;"><i class="fas fa-check"></i></div>
+              <div style="color:${step.done?'var(--text)':'#999'};font-weight:${step.done?'600':'400'};">${step.title}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
       <div class="order-total"><span>${o.items.length} item${o.items.length>1?'s':''} · ${o.payment}</span><b>₹${o.total}</b></div>
     </div>`).join('');
 }
@@ -1720,7 +1796,7 @@ function renderProfile() {
       <div class="profile-header"><div class="profile-avatar">A</div><div class="profile-name">Guest User</div><div class="profile-email">Login to access your account</div></div>
       <button class="login-btn-big" onclick="openModal('login-modal')"><i class="fas fa-sign-in-alt"></i> Login / Register</button>
       <div class="profile-menu">
-        <div class="profile-menu-item" onclick="showPage('orders-page')"><i class="fas fa-box"></i><span>My Orders</span><i class="fas fa-chevron-right chevron"></i></div>
+        <div class="profile-menu-item" onclick="showPage('orders-page')"><i class="fas fa-box"></i><span>My Orders & Tracking</span><i class="fas fa-chevron-right chevron"></i></div>
         <div class="profile-menu-item" onclick="showPage('wishlist-page')"><i class="fas fa-heart"></i><span>Wishlist</span><i class="fas fa-chevron-right chevron"></i></div>
       </div>`;
     return;
@@ -1729,7 +1805,7 @@ function renderProfile() {
   el.innerHTML = `
     <div class="profile-header"><div class="profile-avatar">${initials}</div><div class="profile-name">${state.user.name}</div><div class="profile-email">${state.user.phone}</div></div>
     <div class="profile-menu">
-      <div class="profile-menu-item" onclick="showPage('orders-page')"><i class="fas fa-box"></i><span>My Orders</span><i class="fas fa-chevron-right chevron"></i></div>
+      <div class="profile-menu-item" onclick="showPage('orders-page')"><i class="fas fa-box"></i><span>My Orders & Tracking</span><i class="fas fa-chevron-right chevron"></i></div>
       <div class="profile-menu-item" onclick="showPage('wishlist-page')"><i class="fas fa-heart"></i><span>Wishlist (${state.wishlist.length})</span><i class="fas fa-chevron-right chevron"></i></div>
       <div class="profile-menu-item" onclick="showPage('cart-page')"><i class="fas fa-shopping-bag"></i><span>My Cart (${state.cart.length})</span><i class="fas fa-chevron-right chevron"></i></div>
     </div>
@@ -1759,7 +1835,7 @@ function doSearch() {
   const q = document.getElementById('search-main-input').value.trim().toLowerCase();
   const area = document.getElementById('search-results-area');
   if (!q) { renderRecentSearches(); return; }
-  const results = state.products.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q) || (p.brand||'').toLowerCase().includes(q));
+  const results = state.products.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q) || (p.brand||'').toLowerCase().includes(q) || (p.subcat||'').toLowerCase().includes(q));
   if (!results.length) {
     area.innerHTML = `<div class="empty-state"><i class="fas fa-search"></i><h3>No results found</h3><p>Try different keywords</p></div>`;
     return;
@@ -1797,7 +1873,7 @@ function setCatFilter(cat, el) {
 function filterProducts() {
   const q = (document.getElementById('cat-search')?.value || '').toLowerCase();
   let prods = state.catFilter === 'All' ? [...state.products] : state.products.filter(p => p.cat === state.catFilter);
-  if (q) prods = prods.filter(p => p.name.toLowerCase().includes(q) || (p.brand||'').toLowerCase().includes(q));
+  if (q) prods = prods.filter(p => p.name.toLowerCase().includes(q) || (p.brand||'').toLowerCase().includes(q) || (p.subcat||'').toLowerCase().includes(q));
   document.getElementById('cat-prod-grid').innerHTML = prods.length ? prods.map(p => prodCard(p)).join('') : `<div class="empty-state" style="grid-column:span 2"><i class="fas fa-box-open"></i><h3>No products found</h3></div>`;
 }
 
@@ -1929,7 +2005,14 @@ function renderAdminProducts() {
 function saveProduct() {
   const name = document.getElementById('ap-name').value.trim();
   const cat = document.getElementById('ap-cat').value;
+  const subcat = document.getElementById('ap-subcat').value.trim();
   const brand = document.getElementById('ap-brand').value.trim();
+  const color = document.getElementById('ap-color').value.trim();
+  const weight = document.getElementById('ap-weight').value.trim();
+  const fabric = document.getElementById('ap-fabric').value.trim();
+  const blouse = document.getElementById('ap-blouse').value.trim();
+  const mfr = document.getElementById('ap-mfr').value.trim();
+  const packer = document.getElementById('ap-packer').value.trim();
   const desc = document.getElementById('ap-desc').value.trim();
   const mrp = parseInt(document.getElementById('ap-mrp').value);
   const price = parseInt(document.getElementById('ap-price').value);
@@ -1957,7 +2040,7 @@ function saveProduct() {
     if (idx>-1) {
       state.products[idx] = {
         ...state.products[idx],
-        name, cat, brand, desc, mrp, price,
+        name, cat, subcat, brand, color, weight, fabric, blouse, mfr, packer, desc, mrp, price,
         images: finalImgs,
         img: finalImgs[0],
         videoUrl, videoPrompt, videoMusic,
@@ -1970,7 +2053,7 @@ function saveProduct() {
   } else {
     const id = 'p' + Date.now();
     state.products.unshift({
-      id, name, cat, brand, desc, mrp, price,
+      id, name, cat, subcat, brand, color, weight, fabric, blouse, mfr, packer, desc, mrp, price,
       images: finalImgs,
       img: finalImgs[0],
       videoUrl, videoPrompt, videoMusic,
@@ -2000,7 +2083,14 @@ function editProduct(id) {
   if (!p) return;
   document.getElementById('ap-name').value = p.name;
   document.getElementById('ap-cat').value = p.cat;
+  document.getElementById('ap-subcat').value = p.subcat || '';
   document.getElementById('ap-brand').value = p.brand||'';
+  document.getElementById('ap-color').value = p.color || '';
+  document.getElementById('ap-weight').value = p.weight || '';
+  document.getElementById('ap-fabric').value = p.fabric || '';
+  document.getElementById('ap-blouse').value = p.blouse || '';
+  document.getElementById('ap-mfr').value = p.mfr || '';
+  document.getElementById('ap-packer').value = p.packer || '';
   document.getElementById('ap-desc').value = p.desc||'';
   document.getElementById('ap-mrp').value = p.mrp;
   document.getElementById('ap-price').value = p.price;
@@ -2032,7 +2122,7 @@ function cancelEdit() {
 }
 
 function clearProductForm() {
-  ['ap-name','ap-cat','ap-brand','ap-desc','ap-mrp','ap-price','ap-img-files','ap-imgs-json','ap-video-file','ap-video-url','ap-video-base64','ap-video-prompt','ap-video-music'].forEach(id => {
+  ['ap-name','ap-cat','ap-subcat','ap-brand','ap-color','ap-weight','ap-fabric','ap-blouse','ap-mfr','ap-packer','ap-desc','ap-mrp','ap-price','ap-img-files','ap-imgs-json','ap-video-file','ap-video-url','ap-video-base64','ap-video-prompt','ap-video-music'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
@@ -2072,6 +2162,21 @@ function renderAdminOrders() {
 
 function updateOrderStatus(idx, status) {
   state.orders[idx].status = status;
+  if(status === 'Shipped') {
+    state.orders[idx].trackingSteps = [
+      {title:'Placed', done:true},
+      {title:'Verified', done:true},
+      {title:'Shipped', done:true},
+      {title:'Delivered', done:false}
+    ];
+  } else if(status === 'Delivered') {
+    state.orders[idx].trackingSteps = [
+      {title:'Placed', done:true},
+      {title:'Verified', done:true},
+      {title:'Shipped', done:true},
+      {title:'Delivered', done:true}
+    ];
+  }
   save('orders', state.orders);
   showToast('Order status updated');
 }
